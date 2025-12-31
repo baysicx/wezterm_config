@@ -4,4 +4,5 @@ return Config:init()
 	:append(require('config.fonts')) -- font setting
 	:append(require('config.window')) -- window setting
 	:append(require('config.bindings')) -- key, mouse bindings
+	:append(require('config.color')) -- key, mouse bindings
 	.options
