@@ -22,19 +22,6 @@ local mouse_bindings = {
     },
 }
 
-local keyboard_bindings = {
-    -- tmux_leader = { key = 'b', mods = 'CTRL', timeout_milliseconds = 1000 },
-    -- keys = {
-    --     { key = '-', mods = 'LEADER', action = act.SplitVertical { domain = 'CurrentPaneDomain' } },
-    --     { key = '\\', mods = 'LEADER', action = act.SplitHorizontal { domain = 'CurrentPaneDomain' } },
-    --     { key = 'h', mods = 'LEADER', action = act.ActivatePaneDirection 'Left' },
-    --     { key = 'l', mods = 'LEADER', action = act.ActivatePaneDirection 'Right' },
-    --     { key = 'k', mods = 'LEADER', action = act.ActivatePaneDirection 'Up' },
-    --     { key = 'j', mods = 'LEADER', action = act.ActivatePaneDirection 'Down' },
-    -- },
-}
-
 return {
    mouse_bindings = mouse_bindings,
-   keys = keyboard_bindings,
 }

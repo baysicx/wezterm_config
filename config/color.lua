@@ -8,7 +8,6 @@ local wezterm = require('wezterm')
 -- local color_scheme = 'Tokyo Night'
 local color_scheme = 'Dracula'
 
-
 return {
     color_scheme = color_scheme
 }
