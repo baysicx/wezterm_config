@@ -21,10 +21,6 @@ wezterm.on('gui-startup', function(cmd)
   window:gui_window():set_inner_size(window_width, window_height)
 end)
 
-local wezterm = require 'wezterm'
-
-local wezterm = require 'wezterm'
-
 wezterm.on('format-tab-title', function(tab, tabs, panes, config, hover, max_width)
   local pane = tab.active_pane
   local title = pane.title or ''

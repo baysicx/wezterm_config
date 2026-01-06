@@ -22,6 +22,11 @@ local mouse_bindings = {
     },
 }
 
+local keys = {
+	{ key = 'l', mods = 'CTRL|SHIFT', action = act.ShowLauncher }, -- 选择启动的shell
+}
+
 return {
    mouse_bindings = mouse_bindings,
+   keys = keys
 }
