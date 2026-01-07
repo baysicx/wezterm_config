@@ -31,6 +31,12 @@ return {
    --    font_size = font_size + 20,  -- tab 栏字体大小
    -- },
 
+   -- background, not support webgpu
+   -- window_background_opacity = 0.8,
+   -- macos_window_background_blur = 5,
+   -- win32_system_backdrop = "Acrylic",
+
+
    -- cursor
    animation_fps = 120,
    cursor_blink_ease_in = 'EaseOut',
