@@ -23,10 +23,19 @@ local mouse_bindings = {
 }
 
 local keys = {
-	{ key = 'l', mods = 'CTRL|SHIFT', action = act.ShowLauncher }, -- 选择启动的shell
+	-- { key = 'l', mods = 'CTRL|SHIFT', action = act.ShowLauncher }, -- 选择启动的shell
+    { key = 'a', mods = 'CTRL', action = wezterm.action.ActivateKeyTable { name = 'mode_a', one_shot = true } },
+}
+
+local key_tables = {
+    mode_a = {
+        { key = 'c', action = wezterm.action.SpawnTab 'CurrentPaneDomain' },
+        { key = 'x', action = wezterm.action.CloseCurrentPane { confirm = true } },
+    },
 }
 
 return {
    mouse_bindings = mouse_bindings,
-   keys = keys
+   keys = keys,
+   key_tables = key_tables,
 }

@@ -2,6 +2,7 @@ local wezterm = require('wezterm')
 local umath = require('utils.math')
 local Cells = require('utils.cells')
 local OptsValidator = require('utils.opts-validator')
+local theme_colors = require('colors.custom')
 
 ---@alias Event.RightStatusOptions { date_format?: string }
 
@@ -23,8 +24,10 @@ local attr = Cells.attr
 
 local M = {}
 
-local ICON_SEPARATOR = nf.oct_dash
-local ICON_DATE = nf.fa_calendar
+-- local ICON_SEPARATOR = nf.oct_dash
+local ICON_SEPARATOR = '│' 
+local ICON_DATE = nf.fa_calendar_check
+local ICON_FLUG = nf.fa_flash
 
 ---@type string[]
 local discharging_icons = {
@@ -56,9 +59,9 @@ local charging_icons = {
 ---@type table<string, Cells.SegmentColors>
 -- stylua: ignore
 local colors = {
-   date      = { fg = '#fab387', bg = 'rgba(0, 0, 0, 0.4)' },
-   battery   = { fg = '#f9e2af', bg = 'rgba(0, 0, 0, 0.4)' },
-   separator = { fg = '#74c7ec', bg = 'rgba(0, 0, 0, 0.4)' }
+   date      = { fg = theme_colors.pink, bg = theme_colors.fg },
+   battery   = { fg = theme_colors.green, bg = theme_colors.fg },
+   separator = { fg = theme_colors.silver, bg = theme_colors.fg },
 }
 
 local cells = Cells:new()
@@ -66,7 +69,7 @@ local cells = Cells:new()
 cells
    :add_segment('date_icon', ICON_DATE .. '  ', colors.date, attr(attr.intensity('Bold')))
    :add_segment('date_text', '', colors.date, attr(attr.intensity('Bold')))
-   :add_segment('separator', ' ' .. ICON_SEPARATOR .. '  ', colors.separator)
+   :add_segment('separator', ' ' .. ICON_SEPARATOR .. ' ', colors.separator)
    :add_segment('battery_icon', '', colors.battery)
    :add_segment('battery_text', '', colors.battery, attr(attr.intensity('Bold')))
 
@@ -74,10 +77,17 @@ cells
 local function battery_info()
    -- ref: https://wezfurlong.org/wezterm/config/lua/wezterm/battery_info.html
 
+   batteries = wezterm.battery_info()
+
+   if #batteries == 0 then
+      return '', ICON_FLUG .. ' '
+      -- return 'AC', 'PLUG '  -- 先用纯文本
+   end
+
    local charge = ''
    local icon = ''
 
-   for _, b in ipairs(wezterm.battery_info()) do
+   for _, b in ipairs(batteries) do
       local idx = umath.clamp(umath.round(b.state_of_charge * 10), 1, 10)
       charge = string.format('%.0f%%', b.state_of_charge * 100)
 

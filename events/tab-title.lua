@@ -5,6 +5,7 @@
 local wezterm = require('wezterm')
 local Cells = require('utils.cells')
 local OptsValidator = require('utils.opts-validator')
+local theme_colors = require('colors.custom')
 
 ---
 -- =======================================
@@ -94,17 +95,17 @@ local RENDER_VARIANTS = {
 ---@type table<string, Cells.SegmentColors>
 -- stylua: ignore
 local colors = {
-   text_default          = { bg = '#45475A', fg = '#1C1B19' },
-   text_hover            = { bg = '#5D87A3', fg = '#1C1B19' },
-   text_active           = { bg = '#74c7ec', fg = '#11111B' },
+   text_default          = { bg = theme_colors.gray, fg = theme_colors.fg },
+   text_hover            = { bg = theme_colors.white, fg = theme_colors.fg },
+   text_active           = { bg = theme_colors.blue, fg = theme_colors.fg },
 
-   unseen_output_default = { bg = '#45475A', fg = '#FFA066' },
-   unseen_output_hover   = { bg = '#5D87A3', fg = '#FFA066' },
-   unseen_output_active  = { bg = '#74c7ec', fg = '#FFA066' },
+   unseen_output_default = { bg = theme_colors.gray, fg = theme_colors.silver },
+   unseen_output_hover   = { bg = theme_colors.white, fg = theme_colors.silver },
+   unseen_output_active  = { bg = theme_colors.blue, fg = theme_colors.silver },
 
-   scircle_default       = { bg = 'rgba(0, 0, 0, 0.4)', fg = '#45475A' },
-   scircle_hover         = { bg = 'rgba(0, 0, 0, 0.4)', fg = '#5D87A3' },
-   scircle_active        = { bg = 'rgba(0, 0, 0, 0.4)', fg = '#74C7EC' },
+   scircle_default       = { bg = theme_colors.fg, fg = theme_colors.gray },
+   scircle_hover         = { bg = theme_colors.fg, fg = theme_colors.white },
+   scircle_active        = { bg = theme_colors.fg, fg = theme_colors.blue },
 }
 
 ---
@@ -125,8 +126,22 @@ end
 local function create_title(process_name, base_title, max_width, inset)
    local title
 
-   if process_name:len() > 0 then
-      title = process_name .. ' ~ ' .. base_title
+   -- if process_name:len() > 0 then
+   --    title = process_name .. ' ~ ' .. base_title
+   -- else
+   --    title = base_title
+   -- end
+
+   if process_name:lower():match('^ssh') then
+      local host = base_title:match('@([%d%.]+)') or
+                   base_title:match('@([%w%-%.]+)') or
+                   base_title:match('ssh%s+([%d%.]+)') or
+                   base_title:match('ssh%s+([%w%-%.]+)')
+
+      title = 'ssh->' .. host
+   elseif process_name:len() > 0 then
+      -- title = process_name .. ' ~ ' .. base_title
+      title = process_name
    else
       title = base_title
    end
@@ -145,8 +160,14 @@ local function create_title(process_name, base_title, max_width, inset)
       local diff = title:len() - max_width + inset
       title = title:sub(1, title:len() - diff)
    else
+      -- right padding
+      -- local padding = max_width - title:len() - inset
+      -- title = title .. string.rep(' ', padding)
+      -- in the middle, padding left and right
       local padding = max_width - title:len() - inset
-      title = title .. string.rep(' ', padding)
+      local left_pad = math.floor(padding / 2)
+      local right_pad = padding - left_pad
+      title = string.rep(' ', left_pad) .. title .. string.rep(' ', right_pad)
    end
 
    return title
@@ -216,9 +237,10 @@ function Tab:set_info(event_opts, tab, max_width)
    self.unseen_output = false
    self.unseen_output_count = 0
 
-   if not event_opts.hide_active_tab_unseen or not tab.is_active then
-      self.unseen_output, self.unseen_output_count = check_unseen_output(tab.panes)
-   end
+   -- control unseen output
+   -- if not event_opts.hide_active_tab_unseen or not tab.is_active then
+   --    self.unseen_output, self.unseen_output_count = check_unseen_output(tab.panes)
+   -- end
 
    local inset = (self.is_admin or self.is_wsl) and TITLE_INSET.ICON or TITLE_INSET.DEFAULT
    if self.unseen_output then
@@ -317,7 +339,7 @@ M.setup = function(opts)
       window:perform_action(
          wezterm.action.PromptInputLine({
             description = wezterm.format({
-               { Foreground = { Color = '#FFFFFF' } },
+               { Foreground = { Color = theme_colors.white } },
                { Attribute = { Intensity = 'Bold' } },
                { Text = 'Enter new name for tab' },
             }),

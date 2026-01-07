@@ -1,5 +1,6 @@
 local wezterm = require('wezterm')
 local Cells = require('utils.cells')
+local theme_colors = require('colors.custom')
 
 local nf = wezterm.nerdfonts
 local attr = Cells.attr
@@ -13,8 +14,8 @@ local GLYPH_KEY = nf.md_key --[[ '󰌆' ]]
 
 ---@type table<string, Cells.SegmentColors>
 local colors = {
-   default = { bg = '#fab387', fg = '#1c1b19' },
-   scircle = { bg = 'rgba(0, 0, 0, 0.4)', fg = '#fab387' },
+   default = { bg = theme_colors.white, fg = theme_colors.black },
+   scircle = { bg = theme_colors.black, fg = theme_colors.white },
 }
 
 local cells = Cells:new()

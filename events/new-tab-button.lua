@@ -2,6 +2,7 @@ local wezterm = require('wezterm')
 local launch_menu = require('config.launch').launch_menu
 local domains = require('config.domains')
 local Cells = require('utils.cells')
+local theme_colors = require('colors.custom')
 
 local nf = wezterm.nerdfonts
 local act = wezterm.action
@@ -12,11 +13,11 @@ local M = {}
 ---@type table<string, Cells.SegmentColors>
 -- stylua: ignore
 local colors = {
-   label_text   = { fg = '#CDD6F4' },
-   icon_default = { fg = '#89B4FA' },
-   icon_wsl     = { fg = '#FAB387' },
-   icon_ssh     = { fg = '#F38BA8' },
-   icon_unix    = { fg = '#CBA6F7' },
+   label_text   = { fg = theme_colors.silver },
+   icon_default = { fg = theme_colors.blue },
+   icon_wsl     = { fg = theme_colors.yellow },
+   icon_ssh     = { fg = theme_colors.pink },
+   icon_unix    = { fg = theme_colors.purple },
 }
 
 local cells = Cells:new()
