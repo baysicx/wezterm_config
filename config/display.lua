@@ -57,7 +57,7 @@ return {
    enable_tab_bar = true, -- 启用标签栏显示
    hide_tab_bar_if_only_one_tab = false, -- 即使只有一个标签页也显示标签栏
    use_fancy_tab_bar = false, -- 使用简洁的标签栏样式，而非带装饰的"花哨"样式
-   tab_max_width = 20, -- 每个标签的最大宽度为 25 个字符
+   tab_max_width = 25, -- 每个标签的最大宽度为 25 个字符
    show_tab_index_in_tab_bar = false, -- 不显示序号
    switch_to_last_active_tab_when_closing_tab = true, -- 关闭当前标签后，跳转到上一个活跃的标签页
 
