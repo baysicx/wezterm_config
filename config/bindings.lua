@@ -1,13 +1,8 @@
 local wezterm = require('wezterm')
+local scroll = require('events.scroll')
 local act = wezterm.action
 
 local mouse_bindings = {
-    -- -- Ctrl-click will open the link under the mouse cursor
-    -- {
-    --     event = { Up = { streak = 1, button = 'Left' } },
-    --     mods = 'CTRL',
-    --     action = act.OpenLinkAtMouseCursor,
-    -- },
     -- Ctrl + WheelUp = IncreaseFontSize
     {
         event = { Down = { streak = 1, button = { WheelUp = 1 } } },
@@ -19,6 +14,17 @@ local mouse_bindings = {
         event = { Down = { streak = 1, button = { WheelDown = 1 } } },
         mods = 'CTRL',
         action = act.DecreaseFontSize,
+    },
+    -- fast scroll
+    {
+        event = { Down = { streak = 1, button = { WheelUp = 1 } } },
+        mods = 'ALT',
+        action = scroll.fast_scroll(-1, 0.5),
+    },
+    {
+        event = { Down = { streak = 1, button = { WheelDown = 1 } } },
+        mods = 'ALT',
+        action = scroll.fast_scroll(1, 0.5),
     },
 }
 
@@ -34,23 +40,23 @@ local keys = {
                 -- timeout_milliseconds = 2000,
             }
     },
-    { key = 'p',   mods = 'CTRL|SHIFT', action = act.ActivateCommandPalette, },
+    { key = 'p',   mods = 'CTRL|SHIFT',          action = act.ActivateCommandPalette, },
 
     -- copy and paste
-    { key = 'c',   mods = 'CTRL|SHIFT', action = act.CopyTo('Clipboard') },
-    { key = 'v',   mods = 'CTRL|SHIFT', action = act.PasteFrom('Clipboard') },
+    { key = 'c',   mods = 'CTRL|SHIFT',          action = act.CopyTo('Clipboard') },
+    { key = 'v',   mods = 'CTRL|SHIFT',          action = act.PasteFrom('Clipboard') },
 
     -- clear
-    { key = 'l',   mods = 'CTRL|SHIFT', action = act.ClearScrollback('ScrollbackAndViewport') },
+    { key = 'l',   mods = 'CTRL|SHIFT',          action = act.ClearScrollback('ScrollbackAndViewport') },
 
     -- tab
-    { key = 'Tab', mods = 'CTRL',       action = act.ActivateTabRelative(1) },
-    { key = 'Tab', mods = 'CTRL|SHIFT', action = act.ActivateTabRelative(-1) },
+    { key = 'Tab', mods = 'CTRL',                action = act.ActivateTabRelative(1) },
+    { key = 'Tab', mods = 'CTRL|SHIFT',          action = act.ActivateTabRelative(-1) },
 
     -- font
-    { key = '=',   mods = 'CTRL',       action = act.IncreaseFontSize },
-    { key = '-',   mods = 'CTRL',       action = act.DecreaseFontSize },
-    { key = '0',   mods = 'CTRL',       action = act.ResetFontSize },
+    { key = '=',   mods = 'CTRL',                action = act.IncreaseFontSize },
+    { key = '-',   mods = 'CTRL',                action = act.DecreaseFontSize },
+    { key = '0',   mods = 'CTRL',                action = act.ResetFontSize },
 
     -- debug mode
     { key = 'F12', action = act.ShowDebugOverlay },
@@ -101,12 +107,12 @@ local key_tables = {
         { key = 'Escape', action = act.ClearKeyTableStack },
     },
     tab = {
-        { key = 'n',      action = act.EmitEvent('tabs.manual-update-tab-title') },        -- 重命名tab
-        { key = 'r',      action = act.EmitEvent('tabs.reset-tab-title') },                -- 恢复tab title
-        { key = 't',      action = act.EmitEvent('tabs.toggle-tab-bar') },                 -- 隐藏tab栏
-        { key = 'c',      action = act.SpawnTab('CurrentPaneDomain') },                    -- 创建新tab
+        { key = 'n',      action = act.EmitEvent('tabs.manual-update-tab-title') },             -- 重命名tab
+        { key = 'r',      action = act.EmitEvent('tabs.reset-tab-title') },                     -- 恢复tab title
+        { key = 't',      action = act.EmitEvent('tabs.toggle-tab-bar') },                      -- 隐藏tab栏
+        { key = 'c',      action = act.SpawnTab('CurrentPaneDomain') },                         -- 创建新tab
         { key = 'a',      action = act.ShowLauncherArgs { flags = 'TABS|LAUNCH_MENU_ITEMS' } }, --带有args创建新tab
-        { key = 'x',      action = act.CloseCurrentTab { confirm = true } },               -- 关闭当前tab
+        { key = 'x',      action = act.CloseCurrentTab { confirm = true } },                    -- 关闭当前tab
 
         -- Tab 左右移动
         { key = '[',      action = act.MoveTabRelative(-1) }, -- tab左移
