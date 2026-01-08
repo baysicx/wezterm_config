@@ -1,6 +1,3 @@
-local wezterm = require('wezterm')
-local scheme = wezterm.color.get_builtin_schemes()[color_scheme]
-
 local theme_colors = {
     bg = '#1e1f29',
     fg = '#333333',

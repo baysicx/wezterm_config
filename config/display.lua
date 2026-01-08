@@ -62,7 +62,7 @@ return {
    switch_to_last_active_tab_when_closing_tab = true, -- 关闭当前标签后，跳转到上一个活跃的标签页
 
    -- command palette
-   command_palette_fg_color = theme_colors.blue,
+   command_palette_fg_color = theme_colors.white,
    command_palette_bg_color = theme_colors.gray,
    command_palette_font_size = font_size + 4,
    command_palette_rows = 10,

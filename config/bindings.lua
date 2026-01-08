@@ -51,6 +51,9 @@ local keys = {
     { key = '=',   mods = 'CTRL',       action = act.IncreaseFontSize },
     { key = '-',   mods = 'CTRL',       action = act.DecreaseFontSize },
     { key = '0',   mods = 'CTRL',       action = act.ResetFontSize },
+
+    -- debug mode
+    { key = 'F12', action = act.ShowDebugOverlay },
 }
 
 local key_tables = {
