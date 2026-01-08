@@ -136,7 +136,7 @@ local key_tables = {
     window = {
         { key = 'x',      action = act.QuitApplication },  -- 关闭window
         { key = 'f',      action = act.ToggleFullScreen }, -- 最大化window
-        { key = 'm',      action = act.Hide },             -- 最小化window
+        { key = 'h',      action = act.Hide },             -- 最小化window
 
         { key = 'q',      action = wezterm.action.PopKeyTable },
         { key = 'Escape', action = act.ClearKeyTableStack },
