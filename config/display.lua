@@ -4,6 +4,7 @@ local theme_colors = require('colors.custom')
 
 local font_family = 'JetBrainsMono Nerd Font'
 local font_size = 16
+local window_padding = 15
 
 return {
    -- render
@@ -70,10 +71,10 @@ return {
    -- window
    window_decorations = "RESIZE", ---@type "INTEGRATED_BUTTONS|RESIZE"|"RESIZE"
    window_padding = {
-      left = 10,
-      right = 10,
-      top = 10,
-      bottom = 10,
+      left = window_padding,
+      right = window_padding,
+      top = window_padding,
+      bottom = window_padding,
    },
    adjust_window_size_when_changing_font_size = false, -- 改变字体大小时不自动调整窗口尺寸
    window_close_confirmation = 'NeverPrompt', -- 关闭窗口时不弹出确认提示，直接关闭

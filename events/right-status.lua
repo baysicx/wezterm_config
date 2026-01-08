@@ -81,7 +81,6 @@ local function battery_info()
 
    if #batteries == 0 then
       return '', ICON_FLUG .. ' '
-      -- return 'AC', 'PLUG '  -- 先用纯文本
    end
 
    local charge = ''
