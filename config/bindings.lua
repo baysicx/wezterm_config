@@ -40,26 +40,31 @@ local keys = {
                 -- timeout_milliseconds = 2000,
             }
     },
-    { key = 'p',   mods = 'CTRL|SHIFT',          action = act.ActivateCommandPalette, },
+    { key = 'p',      mods = 'CTRL|SHIFT',          action = act.ActivateCommandPalette, },
 
     -- copy and paste
-    { key = 'c',   mods = 'CTRL|SHIFT',          action = act.CopyTo('Clipboard') },
-    { key = 'v',   mods = 'CTRL|SHIFT',          action = act.PasteFrom('Clipboard') },
+    { key = 'c',      mods = 'CTRL|SHIFT',          action = act.CopyTo('Clipboard') },
+    { key = 'v',      mods = 'CTRL|SHIFT',          action = act.PasteFrom('Clipboard') },
+
+    -- linux copy and paste
+    { key = 'Insert', mods = 'CTRL',                action = act.CopyTo('Clipboard') },
+    { key = 'Insert', mods = 'SHIFT',               action = act.PasteFrom('Clipboard') },
+
 
     -- clear
-    { key = 'l',   mods = 'CTRL|SHIFT',          action = act.ClearScrollback('ScrollbackAndViewport') },
+    { key = 'l',      mods = 'CTRL|SHIFT',          action = act.ClearScrollback('ScrollbackAndViewport') },
 
     -- tab
-    { key = 'Tab', mods = 'CTRL',                action = act.ActivateTabRelative(1) },
-    { key = 'Tab', mods = 'CTRL|SHIFT',          action = act.ActivateTabRelative(-1) },
+    { key = 'Tab',    mods = 'CTRL',                action = act.ActivateTabRelative(1) },
+    { key = 'Tab',    mods = 'CTRL|SHIFT',          action = act.ActivateTabRelative(-1) },
 
     -- font
-    { key = '=',   mods = 'CTRL',                action = act.IncreaseFontSize },
-    { key = '-',   mods = 'CTRL',                action = act.DecreaseFontSize },
-    { key = '0',   mods = 'CTRL',                action = act.ResetFontSize },
+    { key = '=',      mods = 'CTRL',                action = act.IncreaseFontSize },
+    { key = '-',      mods = 'CTRL',                action = act.DecreaseFontSize },
+    { key = '0',      mods = 'CTRL',                action = act.ResetFontSize },
 
     -- debug mode
-    { key = 'F12', action = act.ShowDebugOverlay },
+    { key = 'F12',    action = act.ShowDebugOverlay },
 }
 
 local key_tables = {
