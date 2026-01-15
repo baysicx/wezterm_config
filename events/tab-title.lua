@@ -12,7 +12,7 @@ local theme_colors = require('colors.custom')
 -- Defining event setup options and schema
 -- =======================================
 
----@alias Event.TabTitleOptions { unseen_icon: 'circle' | 'numbered_circle' | 'numbered_box', hide_active_tab_unseen: boolean }
+---@alias Event.TabTitleOptions { unseen_icon: 'circle' | 'numbered_circle' | 'numbered_box', hide_active_tab_unseen: boolean, hide_all_tab_unseen: boolean }
 
 ---Setup options for the tab title
 local EVENT_OPTS = {}
@@ -30,6 +30,12 @@ EVENT_OPTS.schema = {
       type = 'boolean',
       default = true,
    },
+   -- 这个参数用来控制是不是隐藏所有tab的unseen output，优先级高于'hide_active_tab_unseen'
+   {
+      name = 'hide_all_tab_unseen',
+      type = 'boolean',
+      default = true,
+   }
 }
 EVENT_OPTS.validator = OptsValidator:new(EVENT_OPTS.schema)
 
@@ -50,6 +56,7 @@ local GLYPH_LINUX = nf.cod_terminal_linux --[[  ]]
 local GLYPH_DEBUG = nf.fa_bug --[[  ]]
 -- local GLYPH_SEARCH = nf.fa_search --[[  ]]
 local GLYPH_SEARCH = '🔭'
+local GLYPH_CONNECT = nf.cod_vm_connect
 
 local GLYPH_UNSEEN_NUMBERED_BOX = {
    [1] = nf.md_numeric_1_box_multiple, --[[ 󰼏 ]]
@@ -83,12 +90,12 @@ local TITLE_INSET = {
 }
 
 local RENDER_VARIANTS = {
-   { 'scircle_left', 'title', 'padding', 'scircle_right' },
-   { 'scircle_left', 'title', 'unseen_output', 'padding', 'scircle_right' },
-   { 'scircle_left', 'admin', 'title', 'padding', 'scircle_right' },
-   { 'scircle_left', 'admin', 'title', 'unseen_output', 'padding', 'scircle_right' },
-   { 'scircle_left', 'wsl', 'title', 'padding', 'scircle_right' },
-   { 'scircle_left', 'wsl', 'title', 'unseen_output', 'padding', 'scircle_right' },
+   { 'scircle_left', 'title', 'padding',       'scircle_right' },
+   { 'scircle_left', 'title', 'unseen_output', 'padding',       'scircle_right' },
+   { 'scircle_left', 'admin', 'title',         'padding',       'scircle_right' },
+   { 'scircle_left', 'admin', 'title',         'unseen_output', 'padding',      'scircle_right' },
+   { 'scircle_left', 'wsl',   'title',         'padding',       'scircle_right' },
+   { 'scircle_left', 'wsl',   'title',         'unseen_output', 'padding',      'scircle_right' },
 }
 
 
@@ -106,7 +113,7 @@ local colors = {
    scircle_default       = { bg = theme_colors.fg, fg = theme_colors.silver },
    scircle_hover         = { bg = theme_colors.fg, fg = theme_colors.white },
    scircle_active        = { bg = theme_colors.fg, fg = theme_colors.blue },
-   
+
 }
 
 ---
@@ -135,9 +142,10 @@ local function create_title(process_name, base_title, max_width, inset)
 
    if process_name:lower():match('^ssh') then
       local host = base_title:match('@([%d%.]+)') or
-                   base_title:match('@([%w%-%.]+)') or
-                   base_title:match('ssh%s+([%d%.]+)') or
-                   base_title:match('ssh%s+([%w%-%.]+)')
+          base_title:match('@([%w%-%.]+)') or
+          base_title:match('ssh%s+([%d%.]+)') or
+          base_title:match('ssh%s+([%w%-%.]+)') or
+          GLYPH_CONNECT -- 没匹配到就显示一个正在连接的图标
 
       title = 'ssh -> ' .. host
    elseif process_name:len() > 0 then
@@ -239,9 +247,11 @@ function Tab:set_info(event_opts, tab, max_width)
    self.unseen_output_count = 0
 
    -- control unseen output
-   -- if not event_opts.hide_active_tab_unseen or not tab.is_active then
-   --    self.unseen_output, self.unseen_output_count = check_unseen_output(tab.panes)
-   -- end
+   if not event_opts.hide_all_tab_unseen then
+      if not event_opts.hide_active_tab_unseen or not tab.is_active then
+         self.unseen_output, self.unseen_output_count = check_unseen_output(tab.panes)
+      end
+   end
 
    local inset = (self.is_admin or self.is_wsl) and TITLE_INSET.ICON or TITLE_INSET.DEFAULT
    if self.unseen_output then
@@ -258,13 +268,13 @@ end
 function Tab:create_cells()
    local attr = self.cells.attr
    self.cells
-      :add_segment('scircle_left', GLYPH_SCIRCLE_LEFT)
-      :add_segment('admin', ' ' .. GLYPH_ADMIN)
-      :add_segment('wsl', ' ' .. GLYPH_LINUX)
-      :add_segment('title', ' ', nil, attr(attr.intensity('Bold')))
-      :add_segment('unseen_output', ' ' .. GLYPH_CIRCLE)
-      :add_segment('padding', ' ')
-      :add_segment('scircle_right', GLYPH_SCIRCLE_RIGHT)
+       :add_segment('scircle_left', GLYPH_SCIRCLE_LEFT)
+       :add_segment('admin', ' ' .. GLYPH_ADMIN)
+       :add_segment('wsl', ' ' .. GLYPH_LINUX)
+       :add_segment('title', ' ', nil, attr(attr.intensity('Bold')))
+       :add_segment('unseen_output', ' ' .. GLYPH_CIRCLE)
+       :add_segment('padding', ' ')
+       :add_segment('scircle_right', GLYPH_SCIRCLE_RIGHT)
 end
 
 ---@param title string
@@ -300,13 +310,13 @@ function Tab:update_cells(event_opts, is_active, hover)
    end
 
    self.cells
-      :update_segment_colors('scircle_left', colors['scircle_' .. tab_state])
-      :update_segment_colors('admin', colors['text_' .. tab_state])
-      :update_segment_colors('wsl', colors['text_' .. tab_state])
-      :update_segment_colors('title', colors['text_' .. tab_state])
-      :update_segment_colors('unseen_output', colors['unseen_output_' .. tab_state])
-      :update_segment_colors('padding', colors['text_' .. tab_state])
-      :update_segment_colors('scircle_right', colors['scircle_' .. tab_state])
+       :update_segment_colors('scircle_left', colors['scircle_' .. tab_state])
+       :update_segment_colors('admin', colors['text_' .. tab_state])
+       :update_segment_colors('wsl', colors['text_' .. tab_state])
+       :update_segment_colors('title', colors['text_' .. tab_state])
+       :update_segment_colors('unseen_output', colors['unseen_output_' .. tab_state])
+       :update_segment_colors('padding', colors['text_' .. tab_state])
+       :update_segment_colors('scircle_right', colors['scircle_' .. tab_state])
 end
 
 ---@return FormatItem[] (ref: https://wezfurlong.org/wezterm/config/lua/wezterm/format.html)

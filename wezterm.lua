@@ -2,7 +2,7 @@ local Config = require('config')
 
 require('events.left-status').setup()
 require('events.right-status').setup({ date_format = '%m-%d %a %H:%M' })
-require('events.tab-title').setup({ hide_active_tab_unseen = true, unseen_icon = 'numbered_box' })
+require('events.tab-title').setup({ unseen_icon = 'numbered_box' })
 require('events.new-tab-button').setup()
 require('events.gui-startup').setup( { ratio = 1.6 } ) -- 设置缩放
 

@@ -117,7 +117,7 @@ local key_tables = {
         { key = 't',      action = act.EmitEvent('tabs.toggle-tab-bar') },                      -- 隐藏tab栏
         { key = 'c',      action = act.SpawnTab('CurrentPaneDomain') },                         -- 创建新tab
         { key = 'a',      action = act.ShowLauncherArgs { flags = 'TABS|LAUNCH_MENU_ITEMS' } }, --带有args创建新tab
-        { key = 'x',      action = act.CloseCurrentTab { confirm = true } },                    -- 关闭当前tab
+        { key = 'x',      action = act.CloseCurrentTab { confirm = false } },                   -- 关闭当前tab, 不需要确认，直接关闭
 
         -- Tab 左右移动
         { key = '[',      action = act.MoveTabRelative(-1) }, -- tab左移
