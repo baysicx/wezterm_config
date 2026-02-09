@@ -36,7 +36,6 @@ local keys = {
             {
                 name = 'custom',
                 one_shot = false,
-                -- timeout_milliseconds = 2000,
             }
     },
     { key = 'p',      mods = 'CTRL|SHIFT',          action = act.ActivateCommandPalette, },
