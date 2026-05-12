@@ -5,6 +5,7 @@ return {
    exit_behavior_messaging = 'Verbose',
    status_update_interval = 1000,
    audible_bell = 'Disabled',
+   use_ime = false, -- force en-us keyboard
 
    scrollback_lines = 20000,
 
