@@ -26,8 +26,9 @@ local M = {}
 
 -- local ICON_SEPARATOR = nf.oct_dash
 local ICON_SEPARATOR = '│' 
-local ICON_DATE = nf.fa_calendar_check
-local ICON_FLUG = nf.fa_flash
+-- local ICON_DATE = nf.fa_calendar_check
+local ICON_DATE = nf.fa_calendar_check_o or nf.fa_calendar_check or nf.fa_calendar or '📅'
+local ICON_FLUG = nf.fa_flash or nf.fa_bolt or nf.md_lightning or '⚡'
 
 ---@type string[]
 local discharging_icons = {
