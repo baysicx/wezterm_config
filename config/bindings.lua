@@ -1,18 +1,22 @@
 local wezterm = require('wezterm')
 local scroll = require('events.scroll')
+local platform = require('utils.platform')
 local act = wezterm.action
+
+local ctrl_key = platform.is_mac and 'CMD' or 'CTRL'
+local ctrl_shift_key = platform.is_mac and 'CMD|SHIFT' or 'CTRL|SHIFT'
 
 local mouse_bindings = {
     -- Ctrl + WheelUp = IncreaseFontSize
     {
         event = { Down = { streak = 1, button = { WheelUp = 1 } } },
-        mods = 'CTRL',
+        mods = ctrl_key,
         action = act.IncreaseFontSize,
     },
     -- Ctrl + WheelDown = DecreaseFontSize
     {
         event = { Down = { streak = 1, button = { WheelDown = 1 } } },
-        mods = 'CTRL',
+        mods = ctrl_key,
         action = act.DecreaseFontSize,
     },
     -- fast scroll
@@ -31,18 +35,18 @@ local mouse_bindings = {
 local keys = {
     {
         key = 'a',
-        mods = 'CTRL',
+        mods = ctrl_key,
         action = act.ActivateKeyTable
             {
                 name = 'custom',
                 one_shot = false,
             }
     },
-    { key = 'p',      mods = 'CTRL|SHIFT',          action = act.ActivateCommandPalette, },
+    { key = 'p',      mods = ctrl_shift_key,        action = act.ActivateCommandPalette, },
 
     -- copy and paste
-    { key = 'c',      mods = 'CTRL|SHIFT',          action = act.CopyTo('Clipboard') },
-    { key = 'v',      mods = 'CTRL|SHIFT',          action = act.PasteFrom('Clipboard') },
+    { key = 'c',      mods = ctrl_shift_key,        action = act.CopyTo('Clipboard') },
+    { key = 'v',      mods = ctrl_shift_key,        action = act.PasteFrom('Clipboard') },
 
     -- linux copy and paste
     { key = 'Insert', mods = 'CTRL',                action = act.CopyTo('Clipboard') },
@@ -50,16 +54,16 @@ local keys = {
 
 
     -- clear
-    { key = 'l',      mods = 'CTRL|SHIFT',          action = act.ClearScrollback('ScrollbackAndViewport') },
+    { key = 'l',      mods = ctrl_key,        action = act.ClearScrollback('ScrollbackAndViewport') },
 
     -- tab
-    { key = 'Tab',    mods = 'CTRL',                action = act.ActivateTabRelative(1) },
-    { key = 'Tab',    mods = 'CTRL|SHIFT',          action = act.ActivateTabRelative(-1) },
+    { key = 'Tab',    mods = ctrl_key,              action = act.ActivateTabRelative(1) },
+    { key = 'Tab',    mods = ctrl_shift_key,        action = act.ActivateTabRelative(-1) },
 
     -- font
-    { key = '=',      mods = 'CTRL',                action = act.IncreaseFontSize },
-    { key = '-',      mods = 'CTRL',                action = act.DecreaseFontSize },
-    { key = '0',      mods = 'CTRL',                action = act.ResetFontSize },
+    { key = '=',      mods = ctrl_key,              action = act.IncreaseFontSize },
+    { key = '-',      mods = ctrl_key,              action = act.DecreaseFontSize },
+    { key = '0',      mods = ctrl_key,              action = act.ResetFontSize },
 
     -- debug mode
     { key = 'F12',    action = act.ShowDebugOverlay },
