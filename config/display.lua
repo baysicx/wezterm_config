@@ -20,6 +20,8 @@ return {
    }),
    font_size = font_size,
 
+   use_ime = true, -- 启用IME输入
+
    -- underline
    underline_thickness = '1.5pt',
 

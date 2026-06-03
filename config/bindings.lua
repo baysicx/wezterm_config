@@ -40,6 +40,7 @@ local keys = {
             {
                 name = 'custom',
                 one_shot = false,
+                timeout_milliseconds = 10000,
             }
     },
     { key = 'p',      mods = ctrl_shift_key,        action = act.ActivateCommandPalette, },
@@ -54,7 +55,7 @@ local keys = {
 
 
     -- clear
-    { key = 'l',      mods = ctrl_key,        action = act.ClearScrollback('ScrollbackAndViewport') },
+    { key = 'l',      mods = ctrl_key,              action = act.ClearScrollback('ScrollbackAndViewport') },
 
     -- tab
     { key = 'Tab',    mods = ctrl_key,              action = act.ActivateTabRelative(1) },
@@ -73,13 +74,13 @@ local key_tables = {
     -- timeout_milliseconds = 2000,
     custom = {
 
-        { key = 'c',      action = act.ActivateCopyMode, },                                       -- copy mode
-        { key = 'f',      action = act.Search('CurrentSelectionOrEmptyString') },                 -- find mode
+        { key = 'c',      action = act.ActivateCopyMode, },                                                                                    -- copy mode
+        { key = 'f',      action = act.Search('CurrentSelectionOrEmptyString') },                                                              -- find mode
 
-        { key = 'p',      action = act.ActivateKeyTable { name = 'pane', one_shot = false, } },   -- pane
-        { key = 's',      action = act.ActivateKeyTable { name = 'scroll', one_shot = false, } }, -- 翻页 scroll
-        { key = 't',      action = act.ActivateKeyTable { name = 'tab', one_shot = false, } },    -- 进入 tab 子菜单
-        { key = 'w',      action = act.ActivateKeyTable { name = 'window', one_shot = false, } }, -- window 控制
+        { key = 'p',      action = act.ActivateKeyTable { name = 'pane', one_shot = false, timeout_milliseconds = 10000, } },                  -- pane
+        { key = 's',      action = act.ActivateKeyTable { name = 'scroll', one_shot = false, timeout_milliseconds = 10000, } },                -- 翻页 scroll
+        { key = 't',      action = act.ActivateKeyTable { name = 'tab', one_shot = false, timeout_milliseconds = 10000, } },                   -- 进入 tab 子菜单
+        { key = 'w',      action = act.ActivateKeyTable { name = 'window', one_shot = false, timeout_milliseconds = 10000, } },                -- window 控制
 
         { key = 'q',      action = wezterm.action.PopKeyTable },
         { key = 'Escape', action = act.ClearKeyTableStack },
@@ -114,9 +115,9 @@ local key_tables = {
         { key = 'Escape', action = act.ClearKeyTableStack },
     },
     tab = {
-        { key = 'n',      action = act.EmitEvent('tabs.manual-update-tab-title') },             -- 重命名tab
-        { key = 'r',      action = act.EmitEvent('tabs.reset-tab-title') },                     -- 恢复tab title
-        { key = 't',      action = act.EmitEvent('tabs.toggle-tab-bar') },                      -- 隐藏tab栏
+        { key = 'n',      action = act.EmitEvent('tabs.manual-update-tab-title') }, -- 重命名tab
+        -- { key = 'r',      action = act.EmitEvent('tabs.reset-tab-title') },                     -- 恢复tab title
+        -- { key = 't',      action = act.EmitEvent('tabs.toggle-tab-bar') },                      -- 隐藏tab栏
         { key = 'c',      action = act.SpawnTab('CurrentPaneDomain') },                         -- 创建新tab
         { key = 'a',      action = act.ShowLauncherArgs { flags = 'TABS|LAUNCH_MENU_ITEMS' } }, --带有args创建新tab
         { key = 'x',      action = act.CloseCurrentTab { confirm = false } },                   -- 关闭当前tab, 不需要确认，直接关闭
@@ -149,7 +150,7 @@ local key_tables = {
     window = {
         { key = 'x',      action = act.QuitApplication },  -- 关闭window
         { key = 'f',      action = act.ToggleFullScreen }, -- 最大化window
-        { key = 'h',      action = act.Hide },             -- 最小化window
+        { key = 'm',      action = act.Hide },             -- 最小化window
 
         { key = 'q',      action = wezterm.action.PopKeyTable },
         { key = 'Escape', action = act.ClearKeyTableStack },
