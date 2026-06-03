@@ -14,9 +14,9 @@ return {
    webgpu_preferred_adapter = gpu_adapters:pick_best(), -- 根据gpu自动选adapter
 
    -- font
-   font = wezterm.font({
-      family = font_family,
-      weight = 'Medium',
+   font = wezterm.font_with_fallback({
+      { family = font_family, weight = 'Regular' }, --英文字体
+      { family = "Source Han Mono SC", weight = 'Regular' }, --中文字体
    }),
    font_size = font_size,
 
