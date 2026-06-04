@@ -5,6 +5,7 @@ local act = wezterm.action
 
 local ctrl_key = platform.is_mac and 'CMD' or 'CTRL'
 local ctrl_shift_key = platform.is_mac and 'CMD|SHIFT' or 'CTRL|SHIFT'
+local alt_key = platform.is_mac and 'OPT' or 'ALT'
 
 local mouse_bindings = {
     -- Ctrl + WheelUp = IncreaseFontSize
@@ -22,12 +23,12 @@ local mouse_bindings = {
     -- fast scroll
     {
         event = { Down = { streak = 1, button = { WheelUp = 1 } } },
-        mods = 'ALT',
+        mods = alt_key,
         action = scroll.fast_scroll(-1, 0.5),
     },
     {
         event = { Down = { streak = 1, button = { WheelDown = 1 } } },
-        mods = 'ALT',
+        mods = alt_key,
         action = scroll.fast_scroll(1, 0.5),
     },
 }
@@ -100,7 +101,7 @@ local key_tables = {
     },
     pane = {
         { key = '-',      action = act.SplitVertical { domain = 'CurrentPaneDomain' } },
-        { key = '5',      action = act.SplitHorizontal { domain = 'CurrentPaneDomain' } },
+        { key = '\\',      action = act.SplitHorizontal { domain = 'CurrentPaneDomain' } },
 
         { key = 'h',      action = act.ActivatePaneDirection('Left') },
         { key = 'l',      action = act.ActivatePaneDirection('Right') },
