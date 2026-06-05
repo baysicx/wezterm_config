@@ -11,49 +11,30 @@ return {
    scrollback_lines = 20000,
 
    hyperlink_rules = {
-      -- Matches: a URL in parens: (URL)
+      -- 各种括号包裹的 URL：(URL) [URL] {URL} <URL>
       {
-         regex = '\\((\\w+://\\S+)\\)',
+         regex = '[(\\[{<](\\w+://\\S+)[)\\]}>]',
          format = '$1',
          highlight = 1,
       },
-      -- Matches: a URL in brackets: [URL]
+
+      -- 裸 URL（带协议）
       {
-         regex = '\\[(\\w+://\\S+)\\]',
-         format = '$1',
-         highlight = 1,
-      },
-      -- Matches: a URL in curly braces: {URL}
-      {
-         regex = '\\{(\\w+://\\S+)\\}',
-         format = '$1',
-         highlight = 1,
-      },
-      -- Matches: a URL in angle brackets: <URL>
-      {
-         regex = '<(\\w+://\\S+)>',
-         format = '$1',
-         highlight = 1,
-      },
-      -- Then handle URLs not wrapped in brackets
-      {
-         regex = '\\b\\w+://\\S+[)/a-zA-Z0-9-]+',
+         regex = '\\b\\w+://\\S+[/\\w_~:?#@!$&\'()*+,;=%-]+',
          format = '$0',
       },
-      -- implicit mailto link
+
+      -- 隐式 mailto 链接
       {
          regex = '\\b\\w+@[\\w-]+(\\.[\\w-]+)+\\b',
          format = 'mailto:$0',
       },
-      -- 裸域名
+
+      -- 裸域名（TLD 白名单，example.com 可识别，xxx.json 不会）
       {
-         regex = '\\b[a-zA-Z0-9][-a-zA-Z0-9]*\\.[a-zA-Z]{2,}[/\\w._~:/?#@!$&\'()*+,;=-]*',
+         regex =
+         '\\b[a-zA-Z0-9][-a-zA-Z0-9]*(\\.[a-zA-Z0-9-]+)*\\.(com|org|net|io|dev|edu|gov|cn|co|uk|de|fr|jp|me|tech|cloud|info|biz|xyz)\\b[/\\w._~:?#@!$&\'()*+,;=%-]*',
          format = 'https://$0',
-      },
-      -- 带协议的 URL
-      {
-         regex = '\\b\\w+://\\S+[)/a-zA-Z0-9-]+',
-         format = '$0',
       },
    },
 }
