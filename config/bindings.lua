@@ -51,7 +51,7 @@ local keys = {
     { key = 'v',      mods = ctrl_shift_key,        action = act.PasteFrom('Clipboard') },
 
     -- linux copy and paste
-    { key = 'Insert', mods = 'CTRL',                action = act.CopyTo('Clipboard') },
+    { key = 'Insert', mods = ctrl_key,              action = act.CopyTo('Clipboard') },
     { key = 'Insert', mods = 'SHIFT',               action = act.PasteFrom('Clipboard') },
 
 
