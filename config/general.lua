@@ -7,7 +7,7 @@ return {
    audible_bell = 'Disabled',
    use_ime = false, -- force en-us keyboard
 
-   alternate_buffer_wheel_scroll_speed = 1
+   alternate_buffer_wheel_scroll_speed = 1,
    scrollback_lines = 20000,
 
    hyperlink_rules = {
