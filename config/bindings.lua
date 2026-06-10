@@ -69,19 +69,22 @@ local keys = {
 
     -- debug mode
     { key = 'F12',    action = act.ShowDebugOverlay },
+
+    -- reset
+    { key = 'F11', action = act.SendString '\x03reset\n' },
 }
 
 local key_tables = {
     -- timeout_milliseconds = 2000,
     custom = {
 
-        { key = 'c',      action = act.ActivateCopyMode, },                                                                                    -- copy mode
-        { key = 'f',      action = act.Search('CurrentSelectionOrEmptyString') },                                                              -- find mode
+        { key = 'c',      action = act.ActivateCopyMode, },                                                                     -- copy mode
+        { key = 'f',      action = act.Search('CurrentSelectionOrEmptyString') },                                               -- find mode
 
-        { key = 'p',      action = act.ActivateKeyTable { name = 'pane', one_shot = false, timeout_milliseconds = 10000, } },                  -- pane
-        { key = 's',      action = act.ActivateKeyTable { name = 'scroll', one_shot = false, timeout_milliseconds = 10000, } },                -- 翻页 scroll
-        { key = 't',      action = act.ActivateKeyTable { name = 'tab', one_shot = false, timeout_milliseconds = 10000, } },                   -- 进入 tab 子菜单
-        { key = 'w',      action = act.ActivateKeyTable { name = 'window', one_shot = false, timeout_milliseconds = 10000, } },                -- window 控制
+        { key = 'p',      action = act.ActivateKeyTable { name = 'pane', one_shot = false, timeout_milliseconds = 10000, } },   -- pane
+        { key = 's',      action = act.ActivateKeyTable { name = 'scroll', one_shot = false, timeout_milliseconds = 10000, } }, -- 翻页 scroll
+        { key = 't',      action = act.ActivateKeyTable { name = 'tab', one_shot = false, timeout_milliseconds = 10000, } },    -- 进入 tab 子菜单
+        { key = 'w',      action = act.ActivateKeyTable { name = 'window', one_shot = false, timeout_milliseconds = 10000, } }, -- window 控制
 
         { key = 'q',      action = wezterm.action.PopKeyTable },
         { key = 'Escape', action = act.ClearKeyTableStack },
@@ -101,7 +104,7 @@ local key_tables = {
     },
     pane = {
         { key = '-',      action = act.SplitVertical { domain = 'CurrentPaneDomain' } },
-        { key = '\\',      action = act.SplitHorizontal { domain = 'CurrentPaneDomain' } },
+        { key = '\\',     action = act.SplitHorizontal { domain = 'CurrentPaneDomain' } },
 
         { key = 'h',      action = act.ActivatePaneDirection('Left') },
         { key = 'l',      action = act.ActivatePaneDirection('Right') },
