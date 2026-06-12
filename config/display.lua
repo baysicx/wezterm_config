@@ -8,7 +8,7 @@ local window_padding = 15
 
 return {
    -- render
-   max_fps = 120, -- 最大帧率
+   max_fps = 60, -- 最大帧率
    front_end = 'WebGpu', ---@type 'WebGpu' | 'OpenGL' | 'Software' 引擎
    webgpu_power_preference = 'HighPerformance', -- 性能模式
    webgpu_preferred_adapter = gpu_adapters:pick_best(), -- 根据gpu自动选adapter

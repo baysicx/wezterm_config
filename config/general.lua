@@ -11,7 +11,7 @@ return {
    swallow_mouse_click_on_window_focus = true,
    enable_csi_u_key_encoding = false,
 
-   scrollback_lines = 20000,
+   scrollback_lines = 3500, --wezterm default number
 
    hyperlink_rules = {
       -- 各种括号包裹的 URL：(URL) [URL] {URL} <URL>
