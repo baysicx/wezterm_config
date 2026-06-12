@@ -20,7 +20,7 @@ return {
    }),
    font_size = font_size,
 
-   use_ime = true, -- 启用IME输入
+   use_ime = true, -- 启用IME输入, 防止输入法被屏蔽
 
    -- underline
    underline_thickness = '1.5pt',
