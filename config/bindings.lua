@@ -44,34 +44,38 @@ local keys = {
                 timeout_milliseconds = 10000,
             }
     },
-    { key = 'p',      mods = ctrl_shift_key,        action = act.ActivateCommandPalette, },
+    { key = 'p',      mods = ctrl_shift_key,                action = act.ActivateCommandPalette, },
 
     -- copy and paste
-    { key = 'c',      mods = ctrl_shift_key,        action = act.CopyTo('Clipboard') },
-    { key = 'v',      mods = ctrl_shift_key,        action = act.PasteFrom('Clipboard') },
+    { key = 'c',      mods = ctrl_shift_key,                action = act.CopyTo('Clipboard') },
+    { key = 'v',      mods = ctrl_shift_key,                action = act.PasteFrom('Clipboard') },
 
     -- linux copy and paste
-    { key = 'Insert', mods = ctrl_key,              action = act.CopyTo('Clipboard') },
-    { key = 'Insert', mods = 'SHIFT',               action = act.PasteFrom('Clipboard') },
+    { key = 'Insert', mods = ctrl_key,                      action = act.CopyTo('Clipboard') },
+    { key = 'Insert', mods = 'SHIFT',                       action = act.PasteFrom('Clipboard') },
 
 
     -- clear
-    { key = 'l',      mods = ctrl_key,              action = act.ClearScrollback('ScrollbackAndViewport') },
+    { key = 'l',      mods = ctrl_key,                      action = act.ClearScrollback('ScrollbackAndViewport') },
 
     -- tab
-    { key = 'Tab',    mods = ctrl_key,              action = act.ActivateTabRelative(1) },
-    { key = 'Tab',    mods = ctrl_shift_key,        action = act.ActivateTabRelative(-1) },
+    { key = 'Tab',    mods = ctrl_key,                      action = act.ActivateTabRelative(1) },
+    { key = 'Tab',    mods = ctrl_shift_key,                action = act.ActivateTabRelative(-1) },
 
     -- font
-    { key = '=',      mods = ctrl_key,              action = act.IncreaseFontSize },
-    { key = '-',      mods = ctrl_key,              action = act.DecreaseFontSize },
-    { key = '0',      mods = ctrl_key,              action = act.ResetFontSize },
+    { key = '=',      mods = ctrl_key,                      action = act.IncreaseFontSize },
+    { key = '-',      mods = ctrl_key,                      action = act.DecreaseFontSize },
+    { key = '0',      mods = ctrl_key,                      action = act.ResetFontSize },
+
+    -- -- Tab 左右移动
+    { key = '[',      mods = ctrl_key,                      action = act.ActivateTabRelative(-1) }, -- tab左移
+    { key = ']',      mods = ctrl_key,                      action = act.ActivateTabRelative(1) }, -- tab右移
 
     -- debug mode
     { key = 'F12',    action = act.ShowDebugOverlay },
 
     -- reset
-    { key = 'F11', action = act.SendString '\x03reset\n' },
+    { key = 'F11',    action = act.SendString '\x03reset\n' },
 }
 
 local key_tables = {
@@ -126,9 +130,9 @@ local key_tables = {
         { key = 'a',      action = act.ShowLauncherArgs { flags = 'TABS|LAUNCH_MENU_ITEMS' } }, --带有args创建新tab
         { key = 'x',      action = act.CloseCurrentTab { confirm = false } },                   -- 关闭当前tab, 不需要确认，直接关闭
 
-        -- Tab 左右移动
-        { key = '[',      action = act.MoveTabRelative(-1) }, -- tab左移
-        { key = ']',      action = act.MoveTabRelative(1) },  -- tab右移
+        -- -- Tab 左右移动
+        { key = '[',      action = act.ActivateTabRelative(-1) }, -- tab左移
+        { key = ']',      action = act.ActivateTabRelative(1) },  -- tab右移
 
         -- -- 移动到指定位置（索引从 0 开始）
         -- { key = '0',      action = act.MoveTab(0) }, -- 移到最左，0位置

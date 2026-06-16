@@ -7,9 +7,9 @@ return {
    audible_bell = 'Disabled',
    use_ime = false, -- force en-us keyboard
 
-   -- mac lose point
-   swallow_mouse_click_on_window_focus = true,
-   enable_csi_u_key_encoding = false,
+   -- -- mac lose point
+   -- swallow_mouse_click_on_window_focus = true,
+   -- enable_csi_u_key_encoding = false,
 
    scrollback_lines = 3500, --wezterm default number
 

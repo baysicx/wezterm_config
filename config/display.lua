@@ -8,14 +8,14 @@ local window_padding = 15
 
 return {
    -- render
-   max_fps = 60, -- 最大帧率
+   max_fps = 60,                                        -- 最大帧率
    front_end = 'WebGpu', ---@type 'WebGpu' | 'OpenGL' | 'Software' 引擎
-   webgpu_power_preference = 'HighPerformance', -- 性能模式
+   webgpu_power_preference = 'HighPerformance',         -- 性能模式
    webgpu_preferred_adapter = gpu_adapters:pick_best(), -- 根据gpu自动选adapter
 
    -- font
    font = wezterm.font_with_fallback({
-      { family = font_family, weight = 'Regular' }, --英文字体
+      { family = font_family,          weight = 'Regular' }, --英文字体
       { family = "Source Han Mono SC", weight = 'Regular' }, --中文字体
    }),
    font_size = font_size,
@@ -50,18 +50,18 @@ return {
    cursor_blink_rate = 1000,
 
    -- 方块闪烁
---    default_cursor_style = 'BlinkingBlock', 
---    cursor_blink_rate = 650,
+   --    default_cursor_style = 'BlinkingBlock',
+   --    cursor_blink_rate = 650,
 
    -- scrollbar
    enable_scroll_bar = true, -- 滚动条
 
    -- tab bar
-   enable_tab_bar = true, -- 启用标签栏显示
-   hide_tab_bar_if_only_one_tab = false, -- 即使只有一个标签页也显示标签栏
-   use_fancy_tab_bar = false, -- 使用简洁的标签栏样式，而非带装饰的"花哨"样式
-   tab_max_width = 25, -- 每个标签的最大宽度为 25 个字符
-   show_tab_index_in_tab_bar = false, -- 不显示序号
+   enable_tab_bar = true,                             -- 启用标签栏显示
+   hide_tab_bar_if_only_one_tab = false,              -- 即使只有一个标签页也显示标签栏
+   use_fancy_tab_bar = false,                         -- 使用简洁的标签栏样式，而非带装饰的"花哨"样式
+   tab_max_width = 25,                                -- 每个标签的最大宽度为 25 个字符
+   show_tab_index_in_tab_bar = false,                 -- 不显示序号
    switch_to_last_active_tab_when_closing_tab = true, -- 关闭当前标签后，跳转到上一个活跃的标签页
 
    -- command palette
@@ -79,7 +79,7 @@ return {
       bottom = window_padding,
    },
    adjust_window_size_when_changing_font_size = false, -- 改变字体大小时不自动调整窗口尺寸
-   window_close_confirmation = 'NeverPrompt', -- 关闭窗口时不弹出确认提示，直接关闭
+   window_close_confirmation = 'NeverPrompt',          -- 关闭窗口时不弹出确认提示，直接关闭
    -- window_frame = {
    --    active_titlebar_bg = theme_colors.fg,
    --    font = fonts.font,
