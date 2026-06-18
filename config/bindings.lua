@@ -69,7 +69,7 @@ local keys = {
 
     -- -- Tab 左右移动
     { key = '[',      mods = ctrl_key,                      action = act.ActivateTabRelative(-1) }, -- tab左移
-    { key = ']',      mods = ctrl_key,                      action = act.ActivateTabRelative(1) }, -- tab右移
+    { key = ']',      mods = ctrl_key,                      action = act.ActivateTabRelative(1) },  -- tab右移
 
     -- debug mode
     { key = 'F12',    action = act.ShowDebugOverlay },
@@ -159,6 +159,7 @@ local key_tables = {
         { key = 'x',      action = act.QuitApplication },  -- 关闭window
         { key = 'f',      action = act.ToggleFullScreen }, -- 最大化window
         { key = 'm',      action = act.Hide },             -- 最小化window
+        { key = 'a',      action = act.SpawnWindow },      -- 新建window
 
         { key = 'q',      action = wezterm.action.PopKeyTable },
         { key = 'Escape', action = act.ClearKeyTableStack },
