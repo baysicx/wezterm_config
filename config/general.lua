@@ -5,7 +5,7 @@ return {
    exit_behavior_messaging = 'Verbose',
    status_update_interval = 1000,
    audible_bell = 'Disabled',
-   -- use_ime = false, -- force en-us keyboard
+   use_ime = true, -- 启用IME输入, 防止输入法被屏蔽
 
    -- -- mac lose point
    -- swallow_mouse_click_on_window_focus = true,
