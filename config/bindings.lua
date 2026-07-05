@@ -79,10 +79,8 @@ local keys = {
         key = 'F11',
         action = act.Multiple {
             act.SendString '\x03',
-            -- 延迟 50 毫秒，给当前程序留出响应 Ctrl+C 并退出的时间
-            act.Sleep(50),
             act.SendString 'reset\n',
-        },
+        }
     },
 }
 
