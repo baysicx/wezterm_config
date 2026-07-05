@@ -44,38 +44,46 @@ local keys = {
                 timeout_milliseconds = 10000,
             }
     },
-    { key = 'p',      mods = ctrl_shift_key,                action = act.ActivateCommandPalette, },
+    { key = 'p',      mods = ctrl_shift_key,        action = act.ActivateCommandPalette, },
 
     -- copy and paste
-    { key = 'c',      mods = ctrl_shift_key,                action = act.CopyTo('Clipboard') },
-    { key = 'v',      mods = ctrl_shift_key,                action = act.PasteFrom('Clipboard') },
+    { key = 'c',      mods = ctrl_shift_key,        action = act.CopyTo('Clipboard') },
+    { key = 'v',      mods = ctrl_shift_key,        action = act.PasteFrom('Clipboard') },
 
     -- linux copy and paste
-    { key = 'Insert', mods = ctrl_key,                      action = act.CopyTo('Clipboard') },
-    { key = 'Insert', mods = 'SHIFT',                       action = act.PasteFrom('Clipboard') },
+    { key = 'Insert', mods = ctrl_key,              action = act.CopyTo('Clipboard') },
+    { key = 'Insert', mods = 'SHIFT',               action = act.PasteFrom('Clipboard') },
 
 
     -- clear
-    { key = 'l',      mods = ctrl_key,                      action = act.ClearScrollback('ScrollbackAndViewport') },
+    { key = 'l',      mods = ctrl_key,              action = act.ClearScrollback('ScrollbackAndViewport') },
 
     -- tab
-    { key = 'Tab',    mods = ctrl_key,                      action = act.ActivateTabRelative(1) },
-    { key = 'Tab',    mods = ctrl_shift_key,                action = act.ActivateTabRelative(-1) },
+    { key = 'Tab',    mods = ctrl_key,              action = act.ActivateTabRelative(1) },
+    { key = 'Tab',    mods = ctrl_shift_key,        action = act.ActivateTabRelative(-1) },
 
     -- font
-    { key = '=',      mods = ctrl_key,                      action = act.IncreaseFontSize },
-    { key = '-',      mods = ctrl_key,                      action = act.DecreaseFontSize },
-    { key = '0',      mods = ctrl_key,                      action = act.ResetFontSize },
+    { key = '=',      mods = ctrl_key,              action = act.IncreaseFontSize },
+    { key = '-',      mods = ctrl_key,              action = act.DecreaseFontSize },
+    { key = '0',      mods = ctrl_key,              action = act.ResetFontSize },
 
     -- -- Tab 左右移动
-    { key = '[',      mods = ctrl_key,                      action = act.ActivateTabRelative(-1) }, -- tab左移
-    { key = ']',      mods = ctrl_key,                      action = act.ActivateTabRelative(1) },  -- tab右移
+    { key = '[',      mods = ctrl_key,              action = act.ActivateTabRelative(-1) },         -- tab左移
+    { key = ']',      mods = ctrl_key,              action = act.ActivateTabRelative(1) },          -- tab右移
 
     -- debug mode
     { key = 'F12',    action = act.ShowDebugOverlay },
 
     -- reset
-    { key = 'F11',    action = act.SendString '\x03reset\n' },
+    {
+        key = 'F11',
+        action = act.Multiple {
+            act.SendString '\x03',
+            -- 延迟 50 毫秒，给当前程序留出响应 Ctrl+C 并退出的时间
+            act.Sleep(50),
+            act.SendString 'reset\n',
+        },
+    },
 }
 
 local key_tables = {
